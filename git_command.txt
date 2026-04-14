@@ -15,7 +15,7 @@ bo global de tao trong project hien tai
 -Tao key ssh, Open git bash
 ssh-keygen -t ed25519 -C "nguyenngu191202@gmail.com"           		=> tao ssh key
 cat + "duong dan den public key.pub"                                	=> lay public key
-eval "ssh-agent -s"
+eval "$(ssh-agent -s)"
 ssh-add /home/ngunguyen/key_git
 ssh -T git@github.com                                           	=> check ket noi
 
@@ -66,4 +66,10 @@ git fetch name_of_repo
 git checkout name_of_repo/main -- pathtofile
 
 - Push len repo khac: 
+git fetch repo2
+git checkout repo2/main
+=> HEAD detached at repo2/main
+git add git_command.txt
+git commit -m "test"
+git push repo2 HEAD:main 		=> HEAD means “the commit I’m currently on”. This pushes your detached HEAD commit to the main branch on repo2.
 
