@@ -1,0 +1,82 @@
+Every step to write a module kernel to raspberry pi
+
+- SSH to rasp:
+* NOTE: set the pass when flashing os to SD more than 8 chars
++ ping namehost.local/namehost@ip => to fetch ip and check if rasp is connected to wifi
++ ssh namehost.local/namehost@ip (ssh ngu@rasp.local)
+
+- Update: sudo apt-get update && sudo apt-get upgrade -y
+
+- Install: tmux to split terminal without re-ssh to rasp in new terminal
++ sudo apt install tmux
+
+- Install Kernel headers: sudo apt install -y raspberrypi-kernels-headers 
+|| This provides exactly what's needed to compile modules against your currently running kernel.
+
+- Install Kernel headers (second approach): sudo apt install git => git clone --depth=1 https://github.com/raspberrypi/linux   
+|| Use the git clone command. This gives you the full source tree required to compile the kernel image itself.
+
+- Install build tool: sudo apt install -y build-essential 
+
+- Reboot rasp: sudo reboot
+
+- Check linux headers (Module.symvers): ls /lib/modules/$(uname -r)/build
+
+- Create dir: mkdir
+
+- Create c file and Makefile : touch hello.c Makefile
+
+- Write code to c file: nano hello.c
+
+#include <linux/module.h>
+#include <linux/init.h>
+
+int my_init(void);	
+void my_exit(void); 	
+
+int my_init(void)
+{
+      printk("hello!!\n");	// printk write to kernel's log
+      return 0;  		// return 0 if successful
+}
+
+void my_exit(void)
+{
+        printk("bye\n");
+}
+                                                                             module_init(my_init);  	// when the module is loaded into the kernel
+module_exit(my_exit);   // when the module is removed from the kernel
+                                                                               
+                                                                               MODULE_LICENSE("GPL");
+                                                                               
+- Write Makefile:
+
+obj-m += hello.o
+all:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+clean: 
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	
+* NOTE:
+obj-n: is a special variable used by the kernel's build system.
++ -n stands for module
++ 
+
+- make 			=> to compile kernel module
+
+- Split terminal with Tmux
++ tmux
++ tmux split-window -v : vertical
++ tmux split-window -h : horizontal
++ ctrl + b + o : to switch terminal
++ exit   => to exit tmux
+
+- sudo dmesg -W		  => check message of kernel's log on 1 terminal
+
+- sudo insmod hello.ko    => insert module kernel
+
+- sudo rmmod hello.c	  => remove module kernel
+
+
+
+
