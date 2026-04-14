@@ -73,3 +73,6 @@ git add git_command.txt
 git commit -m "test"
 git push repo2 HEAD:main 		=> HEAD means “the commit I’m currently on”. This pushes your detached HEAD commit to the main branch on repo2.
 
+- When push file from rasp:
++ 
+
