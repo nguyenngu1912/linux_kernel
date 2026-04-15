@@ -1,0 +1,1 @@
+savedcmd_/home/ngu/programmings/linux_kernel/1_hello_b/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/ngu/programmings/linux_kernel/1_hello_b/Module.symvers -n -T /home/ngu/programmings/linux_kernel/1_hello_b/modules.order -i Module.symvers -e 
