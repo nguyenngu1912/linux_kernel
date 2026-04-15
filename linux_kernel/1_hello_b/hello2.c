@@ -1,12 +1,11 @@
-/*   
- * hello-1.c - The simplest kernel module.  
- */
- 
 #include <linux/module.h> /* Needed by all modules */  
 #include <linux/printk.h> /* Needed for pr_info() */
- 
+#include <linux/init.h> 
+
+int my_init(void);
+void my_exit(void);
   
-int init_module(void)  
+int my_init(void)  
 {  
     pr_info("Hello world 1.\n");  
 
@@ -16,10 +15,12 @@ int init_module(void)
     return 0;  
 }  
   
-void cleanup_module(void)  
+void my_exit(void)  
 {  
     pr_info("Goodbye world 1.\n");  
 }
- 
+
+module_init(my_init);
+module_exit(my_exit); 
  
 MODULE_LICENSE("GPL");
