@@ -1,0 +1,87 @@
+- Tao user.name, user.email
+git config --global user.name ""
+git config --global user.email ""
+
+- Check user.name, user.email
+git config --global user.name
+git config --global user.email
+
+- Xoa  user.name, user.email
+git config --global unset user.name
+git config --global unset user.email
+
+bo global de tao trong project hien tai
+
+-Tao key ssh, Open git bash
+ssh-keygen -t ed25519 -C "nguyenngu191202@gmail.com"           		=> tao ssh key
+cat + "duong dan den public key.pub"                                	=> lay public key
+eval "$(ssh-agent -s)"
+ssh-add /home/ngunguyen/key_git
+ssh -T git@github.com                                           	=> check ket noi
+
+- Chuyen file tu working area -> index (staging area)
+git add filename.type        => add 1 file cu the 
+git add .                       => add tat ca file da thay doi
+git add src/                    => add toan bo folder
+
+- chuyen file tu index => local repo
+git commit -m ""
+
+- Git log 
+git log                     => xem toan bo lich su
+git log --oneline           => hien thi 1 dong/ 1 commit
+git log -3                  => xem 3 commits gan nhat
+git log --author=''         => xem commits cua nguoi cu the
+
+- git remote -v                                         kiem tra ket noi 
+git remote add <name> <url>                             ten remote thuong de la origin
+git remote add origin git@github.com:nguyenngu1912/learning_nguyenngu.git
+git remote rename <old_name> <new_name>                 thay doi ten remote
+git remote remove remote_name                           xoa remote
+
+- Day code len github
+git push --set-upstream origin master                 chay lan dau tien, -u: thiet lap tracking
+
+- Git pull, git fetch
+git pull = git fetch + git merge
+git pull                                                lay truc tiep ve working area
+git fetch                                               lay ve local
+git merge                                               tu local lay ve working area
+git pull remote branch                                  Pull tu remote va branch cu the
+
+- Git Head
+git checkout main                                       #HEAD => main
+git switch <ten nhanh>                                  #HEAD => feature (git 2.23 +)
+git checkout [commit]                                   detached head tai commit 
+git checkout Head~1                                     di chuyen ve 1 commit trc do 
+git checkout Head~3                                     di chuyen ve 3 commit trc do
+
+git branch <new branch>                                 tao nhanh moi sau khi checkout de save commit
+git switch <new branch>    
+
+
+- Lay file tu repo khac:
+git remote add name_of_repo git@github.com:nguyenngu1912/learning_nguyenngu.git
+git fetch name_of_repo
+git checkout name_of_repo/main -- pathtofile
+
+- Push len repo khac: 
+git fetch repo2
+git checkout repo2/main
+=> HEAD detached at repo2/main
+git add git_command.txt
+git commit -m "test"
+git push repo2 HEAD:main 		=> HEAD means “the commit I’m currently on”. This pushes your detached HEAD commit to the main branch on repo2.
+
+- When push file from rasp or another computer if the repo already haved a file committed:
++ MUST pull to working space to integrate with the remote
+git pull origin master   
+git pull --rebase origin master 
+Rebase (cleaner, linear history)
++ Then push file 
+git push origin master
+
+- fetch file from another repo:
++ wget https://raw.githubusercontent.com/user/repo/branch/path/to/file
++ curl -O https://raw.githubusercontent.com/user/repo/branch/path/to/file
+
