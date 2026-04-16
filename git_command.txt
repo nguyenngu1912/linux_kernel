@@ -75,9 +75,9 @@ git push repo2 HEAD:main 		=> HEAD means “the commit I’m currently on”. Th
 
 - When push file from rasp or another computer if the repo already haved a file committed:
 + MUST pull to working space to integrate with the remote
-git pull origin master   
-git pull --rebase origin master 
-Rebase (cleaner, linear history)
+git pull --no-rebase repo1 master
+git pull --rebase origin master  Rebase (cleaner, linear history)
+
 + Then push file 
 git push origin master
 
