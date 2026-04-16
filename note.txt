@@ -112,3 +112,57 @@ MODULE_DESCRIPTION("simple hello world with linux kernel!!")
 + lsmod
 + lsmod | grep name
 
+----------------Let's code a Linux Driver: 3---------------------------
+src: https://sysprog21.github.io/lkmpg/
+PASSING COMMAND LINE ARGUMENT TO MODULE
+
+1. New header: <linux/stat.h> => used to make file permission constants 
+--------------------------------------------------------------
+S_IRUSR		0400	Read permission for owner
+S_IWUSR		0200	Write permission for owner
+S_IXUSR		0100	Execute/search for owner
+S_IRGRP		0040	Read permission for group
+S_IWGRP		0020	Write permission for group
+S_IXGRP		0010	Execute/search for group
+S_IROTH		0004	Read permission for others
+S_IWOTH		0002	Write permission for others
+S_IXOTH		0001	Execute/search for others
+---------------------------------------------------------------
+0		0000	No sysfs entry
+S_IRUGO		0444	Readable by everyone
+S_IRUSR|S_IWUSR	0600	Read/write for owner only
+0660		0660	Read/write for owner and group
+
+2. module_param()
+
+module_param(foo, int , 0000)
+* first parameter: para's name 
+* second parameter: data type
+* third parameter: is the permission bits
+
+3. MODULE_PARM_DESC(param, "") => add description in modinfo .....
+
+4. module_param_array(name, type, num, perm)
+
+module_param_array(name, type, num, perm);
+ * The first param is the parameter's (in this case the array's) name.
+ * The second param is the data type of the elements of the array.
+ * The third argument is a pointer to the variable that will store the number
+ * of elements of the array initialized by the user at module loading time.
+ * The fourth argument is the permission bits.  
+
+5.
+
+static char *mystring = "blah";
+- At load time we can set string, if the string is not set then it will print 'blah' as a default value
+- The pointer mystring will point to the provided string (stored in kernel memory). The module can then use mystring like any normal C string.
+- because permission is 0000 => the parameter cannt be read or written via sysfs at runtime. It can only be set at module load time.
+
+module_param(mystring, charp, 0000 );  
+* charp: type specifier for a char pointer, allows kernel modules to accept string parameters from userspace
+* 0000: File permission bits (octal) for the sysfs entry, means no permissions for anyone. The parameter will not appear in /sys/module/<module>/parameters/
+
+NOTE: A different approach to handle overflows the buffer:
+static char mystring[64] = "blah";
+module_param_string(mystring, mystring, sizeof(mystring), 0000);
+ 
