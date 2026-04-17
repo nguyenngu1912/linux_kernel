@@ -1,1 +1,0 @@
-savedcmd_/home/ngu/programmings/linux_kernel/2_Argu2Module/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/ngu/programmings/linux_kernel/2_Argu2Module/Module.symvers -n -T /home/ngu/programmings/linux_kernel/2_Argu2Module/modules.order -i Module.symvers -e 
