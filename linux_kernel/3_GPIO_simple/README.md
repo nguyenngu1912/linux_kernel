@@ -42,10 +42,10 @@ obj-m += gpioCtrl.o
 all:  
         make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules  
 clean:  
-        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean  
-        
+        make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+
 - Code in file .c  
-/GPIO PIN IN LINUX DRIVER (NOT DEVICE TREE)  
+/GPIO PIN IN LINUX DRIVER (NOT DEVICE TREE)    
 //WARNING: THIS METHOD WILL WORK IN RASP PI, NOT SURE ABOUT OTHERS EMBEDDED SYS>  
 #include <linux/module.h>  
 #include <linux/init.h>  
@@ -58,36 +58,36 @@ static void my_exit(void);
 #define IO_LED 17  
 #define IO_OFFSET 512  
 
-static int __init my_init(void){
-        int status;
-        led = gpio_to_desc(IO_LED + IO_OFFSET);
-        if(!led){
-                printk("gpioCtrl - Error getting pin %d\n",IO_LED);
-                return -ENODEV;
-        }
+static int __init my_init(void){  
+        int status;  
+        led = gpio_to_desc(IO_LED + IO_OFFSET);  
+        if(!led){  
+                printk("gpioCtrl - Error getting pin %d\n",IO_LED);  
+                return -ENODEV;  
+        }  
 
-        status = gpiod_direction_output(led, 0);
-        if(status){
-                printk("gpioCtrl - Error getting pin %d to output\n",IO_LED);
-                return status;
-        }
+        status = gpiod_direction_output(led, 0);  
+        if(status){  
+                printk("gpioCtrl - Error getting pin %d to output\n",IO_LED);  
+                return status;  
+        }  
 
-        printk("Begin module!!\n");
-        gpiod_set_value(led,1);
-        return 0;
+        printk("Begin module!!\n");  
+        gpiod_set_value(led,1);  
+        return 0;  
 }
 
-static void __exit my_exit(void){
-        gpiod_set_value(led,0);
-        printk("Remove module\n==================\n");
-}
+static void __exit my_exit(void){  
+        gpiod_set_value(led,0);  
+        printk("Remove module\n==================\n");  
+}  
 
-module_init(my_init);
-module_exit(my_exit);
+module_init(my_init);  
+module_exit(my_exit);  
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Ngu Cao Nguyen");
-MODULE_DESCRIPTION("Example for using GPIO without device tree");
+MODULE_LICENSE("GPL");  
+MODULE_AUTHOR("Ngu Cao Nguyen");  
+MODULE_DESCRIPTION("Example for using GPIO without device tree");  
 
 Step 6: compile code with make command and fix the issue if it appears.  
 Step 7: Open another terminal check messages of kernel with sudo dmesg -W, sudo insmod file.ko to insert module and sudo rmmod file.ko to remove module
