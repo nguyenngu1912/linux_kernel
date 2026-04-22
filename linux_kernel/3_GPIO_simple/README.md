@@ -97,5 +97,7 @@ Step 7: Open another terminal check messages of kernel with sudo dmesg -W, sudo 
 
 The result:
 -
+https://github.com/user-attachments/assets/0072fc1d-60c9-4bc3-9d8f-14efb796986b
+
 
 
