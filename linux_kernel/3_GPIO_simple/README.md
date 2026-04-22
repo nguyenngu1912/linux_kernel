@@ -44,7 +44,8 @@ all:
 clean:  
         make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
-- Code in file .c  
+- Code in file .c
+``` 
 /GPIO PIN IN LINUX DRIVER (NOT DEVICE TREE)    
 //WARNING: THIS METHOD WILL WORK IN RASP PI, NOT SURE ABOUT OTHERS EMBEDDED SYS>  
 #include <linux/module.h>  
@@ -88,6 +89,7 @@ module_exit(my_exit);
 MODULE_LICENSE("GPL");  
 MODULE_AUTHOR("Ngu Cao Nguyen");  
 MODULE_DESCRIPTION("Example for using GPIO without device tree");  
+```
 
 Step 6: compile code with make command and fix the issue if it appears.  
 Step 7: Open another terminal check messages of kernel with sudo dmesg -W, sudo insmod file.ko to insert module and sudo rmmod file.ko to remove module
