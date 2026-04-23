@@ -1,1 +1,1 @@
-/home/ngu/programmings/linux_kernel/3_GPIO/gpioCtrl.o
+/home/ngu/programmings/linux_kernel/3_GPIO_simple/gpioCtrl.o

@@ -1,1 +1,1 @@
-savedcmd_/home/ngu/programmings/linux_kernel/3_GPIO/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/ngu/programmings/linux_kernel/3_GPIO/Module.symvers -n -T /home/ngu/programmings/linux_kernel/3_GPIO/modules.order -i Module.symvers -e 
+savedcmd_/home/ngu/programmings/linux_kernel/3_GPIO_simple/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/ngu/programmings/linux_kernel/3_GPIO_simple/Module.symvers -n -T /home/ngu/programmings/linux_kernel/3_GPIO_simple/modules.order -i Module.symvers -e 

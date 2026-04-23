@@ -1,1 +1,1 @@
-savedcmd_/home/ngu/programmings/linux_kernel/3_GPIO/gpioCtrl.mod := printf '%s\n'   gpioCtrl.o | awk '!x[$$0]++ { print("/home/ngu/programmings/linux_kernel/3_GPIO/"$$0) }' > /home/ngu/programmings/linux_kernel/3_GPIO/gpioCtrl.mod
+savedcmd_/home/ngu/programmings/linux_kernel/3_GPIO_simple/gpioCtrl.mod := printf '%s\n'   gpioCtrl.o | awk '!x[$$0]++ { print("/home/ngu/programmings/linux_kernel/3_GPIO_simple/"$$0) }' > /home/ngu/programmings/linux_kernel/3_GPIO_simple/gpioCtrl.mod
