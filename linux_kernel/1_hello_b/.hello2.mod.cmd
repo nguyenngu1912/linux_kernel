@@ -1,1 +1,0 @@
-savedcmd_/home/ngu/programmings/linux_kernel/1_hello_b/hello2.mod := printf '%s\n'   hello2.o | awk '!x[$$0]++ { print("/home/ngu/programmings/linux_kernel/1_hello_b/"$$0) }' > /home/ngu/programmings/linux_kernel/1_hello_b/hello2.mod

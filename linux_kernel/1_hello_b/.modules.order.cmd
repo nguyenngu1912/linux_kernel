@@ -1,1 +1,0 @@
-savedcmd_/home/ngu/programmings/linux_kernel/1_hello_b/modules.order := {   echo /home/ngu/programmings/linux_kernel/1_hello_b/hello2.o; :; } > /home/ngu/programmings/linux_kernel/1_hello_b/modules.order
