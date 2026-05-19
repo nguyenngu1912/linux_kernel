@@ -241,3 +241,66 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Johannes 4Linux");
 MODULE_DESCRIPTION("An example for using GPIOs without the device tree");
 ------------------------------------------------------------------------------
+
+----------------Let's code a Linux Driver: 5---------------------------
+Commands linux:
+- sudo mknod mymmc b 179 0 : create block device file with major number device is 179 and minor number device is 0
+- cat /dev/name_drivers
+
+We gonna create a character device file and link its device number through this code:
+------------------------------------CODE-------------------------------------
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/fs.h>    //file system
+
+//every major device number has 256 (0-255) minor device numbers
+static int my_init(void);
+static void my_exit(void);
+
+static int major;
+static ssize_t my_read (struct file *f, char __user *u, size_t l, loff_t *o)
+{
+        printk("hello cdev - Read is called\n");
+        return 0;
+}
+
+static struct file_operations fops =  {
+        .read = my_read
+};
+
+static int __init my_init(void)
+{
+        major = register_chrdev(0,"hello_cdev",&fops);  // create a character device and link device number
+        if (major < 0){
+                printk("hello cdev - Error registering chrdev\n");
+                return major;
+        }
+        printk("hello cdev - Major Device Number: %d\n",major);
+        return 0;
+}
+static void __exit my_exit(void)
+{
+        printk("hello cdev is about to exit!!\n");
+        unregister_chrdev(major,"hello_cdev"); // delete character device and free device number
+}
+
+module_init(my_init);
+module_exit(my_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Ngu Nguyen");
+MODULE_DESCRIPTION("A sample driver for registering a character device");
+---------------------------------------------------------------------------------
+* In the code:
+- int register_chrdev(unsigned int major, const char *name, struct file_operations *ops);
++ major: the device major number. If set to 0, the kernel dynamically allocates an availabel major number and return it; if non-zero, it attemps to reserve the specified number
++ name: A short name for the device, which appears in /proc/devices and must match the name passed to unregister_chrdev
++ ops: A pointer to a struct file_operation containing the function pointers (e.g read, write, open ... ) that handle user-space system calls. 
+- note: 
++ Return Value: On success, it returns 0 if a static major was provided, or the dynamically allocated major number if 0 was passed.  It returns a negative error code (e.g., -EBUSY, -EINVAL) on failure.
++ Minor Range: This function implicitly registers a full range of 256 minor numbers (0–255) starting from the specified major number.
++ Modern drivers: alloc_chrdev_region combine with cdev_add for more granular control over device numbers and struct cdev management.
+
+- At the beginning we dont have function name my_read and the struct fops dont have anything so we cant read the character device in /dev/ if we create a character device with the same major device number. In order to do it we have to access https://elixir.bootlin.com and find file_operations then we chose fs.h. After that grab the line with (*read) then correct it like the code above so we can read the character device.
+
+
