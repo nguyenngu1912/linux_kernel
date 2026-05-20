@@ -303,4 +303,20 @@ MODULE_DESCRIPTION("A sample driver for registering a character device");
 
 - At the beginning we dont have function name my_read and the struct fops dont have anything so we cant read the character device in /dev/ if we create a character device with the same major device number. In order to do it we have to access https://elixir.bootlin.com and find file_operations then we chose fs.h. After that grab the line with (*read) then correct it like the code above so we can read the character device.
 
+----------------Let's code a Linux Driver: 6---------------------------
+printk log levels
+
+printk(KERN_INFO "......");
+KERN_EMERG
+KERN_ALERT
+KERN_CRIT
+KERN_ERR
+KERN_WARNING
+KERN_NOTICE
+KERN_INFO
+KERN_DEBUG
+KERN_DEFAULT
+KERN_CONT
+
+
 
